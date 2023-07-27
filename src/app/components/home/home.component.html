@@ -1,0 +1,89 @@
+<form [formGroup]="startForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label class="form-label">n_players:</label>
+    <input type="number" formControlName="n_players" min="3" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f['n_players'].errors }" />
+    <div *ngIf="submitted && f['n_players'].errors" class="invalid-feedback">
+      <div *ngIf="f['n_players'].errors['required']">n_players is required</div>
+      <div *ngIf="f['n_players'].errors['min']">El número de jugadores debe de ser superior a
+        {{f['n_players'].errors['min'].min}}</div>
+      <div *ngIf="f['n_players'].errors['pattern']" class="text-danger">Number Only</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">n_moles:</label>
+    <input type="number" formControlName="n_moles" min="1" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f['n_moles'].errors }" />
+    <div *ngIf="submitted && f['n_moles'].errors" class="invalid-feedback">
+      <div *ngIf="f['n_moles'].errors['required']">nThemole is required</div>
+      <div *ngIf="f['n_moles'].errors['min']">El número de theMoles debe de ser superior a
+        {{f['n_moles'].errors['min'].min}}</div>
+      <div *ngIf="f['n_moles'].errors['pattern']" class="text-danger">Number Only</div>
+      <div *ngIf="f['n_moles'].errors['match_mole']">El numero de moles debe de ser inferior al de jugadores</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    Selecciona una categoria:
+
+    <div class="form-check">
+      <input class="form-check-input" formControlName="cat_word" type="radio" name="cat_word" id="flexRadioDefault1"
+        value="1" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
+      <label class="form-check-label" for="flexRadioDefault1">
+        Frases 1:
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" formControlName="cat_word" type="radio" name="cat_word" id="flexRadioDefault2"
+        value="2" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
+      <label class="form-check-label" for="flexRadioDefault2">
+        Frases 2:
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" formControlName="cat_word" type="radio" name="cat_word" id="flexRadioDefault3"
+        value="0" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
+      <label class="form-check-label" for="flexRadioDefault3">
+        Frases 3:
+      </label>
+    </div>
+    <div *ngIf="submitted && f['cat_word'].errors" class="invalid-feedback">
+      <div *ngIf="f['cat_word'].errors['required']">Selecciona una cateogria</div>
+    </div>
+  </div>
+  <div *ngIf="f['cat_word'].value=='0'">
+    <label class="form-label">word presona:</label>
+    <input type="text" formControlName="custom_word" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f['custom_word'].errors}" />
+    <div *ngIf="submitted && f['custom_word'].errors" class="invalid-feedback">
+      <div *ngIf="f['custom_word'].errors['custom_word_error']">Debes introducir la palabra</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <div class="form-group">
+      <button [disabled]="loading" class="btn btn-primary">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+        Login
+      </button>
+    </div>
+  </div>
+</form>
+
+{{startForm.value | json }}
+{{startForm.status | json}}
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content1)">Test modal</button>
+
+
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        fdgdfgdfgdfgdfgdf
+      </div>
+    </form>
+  </div>
+</ng-template>

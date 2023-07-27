@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+        "target": "http://themole.beez.es",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}
