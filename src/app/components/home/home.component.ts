@@ -40,7 +40,8 @@ export class HomeComponent implements OnInit {
       event.preventDefault();
       this.deferredPrompt = event;
       this.showInstallButton = true;
-      alert(this.showInstallButton);
+      this.installPwa();
+      //alert(this.showInstallButton);
     });
    
   };
