@@ -1,8 +1,8 @@
 {
     "/api/*": {
-        "target": "http://themole.beez.es",
-        "secure": false,
+        "target": "https://themolerat.com",
+        "secure": true,
         "logLevel": "debug",
-        "changeOrigin": true
+        "changeOrigin": false
     }
 }

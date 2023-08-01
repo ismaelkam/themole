@@ -1,88 +1,145 @@
-<form [formGroup]="startForm" (ngSubmit)="onSubmit()">
-  <div class="mb-3">
-    <label class="form-label">n_players:</label>
-    <input type="number" formControlName="n_players" min="3" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted && f['n_players'].errors }" />
-    <div *ngIf="submitted && f['n_players'].errors" class="invalid-feedback">
-      <div *ngIf="f['n_players'].errors['required']">n_players is required</div>
-      <div *ngIf="f['n_players'].errors['min']">El número de jugadores debe de ser superior a
-        {{f['n_players'].errors['min'].min}}</div>
-      <div *ngIf="f['n_players'].errors['pattern']" class="text-danger">Number Only</div>
-    </div>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">n_moles:</label>
-    <input type="number" formControlName="n_moles" min="1" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted && f['n_moles'].errors }" />
-    <div *ngIf="submitted && f['n_moles'].errors" class="invalid-feedback">
-      <div *ngIf="f['n_moles'].errors['required']">nThemole is required</div>
-      <div *ngIf="f['n_moles'].errors['min']">El número de theMoles debe de ser superior a
-        {{f['n_moles'].errors['min'].min}}</div>
-      <div *ngIf="f['n_moles'].errors['pattern']" class="text-danger">Number Only</div>
-      <div *ngIf="f['n_moles'].errors['match_mole']">El numero de moles debe de ser inferior al de jugadores</div>
-    </div>
-  </div>
-  <div class="mb-3">
-    Selecciona una categoria:
+<div class="d-flex align-items-center justify-content-center vh-100">
+  <div class="shadow p-1">
+    <img class="img-fluid mx-auto d-block" src="assets/TheMoleRat.png"/>
+     
+    <form [formGroup]="startForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="form-label">Jugadores:</label>
+            <div class="input-group mb-3">
+              <button type='button' (click)="change_input('n_players','minus')" class="btn btn-primary m-0 fs-3"><i class="fa-solid fa-square-minus"></i></button>
+            <input type="number" formControlName="n_players" min="3" class="form-control text-center fs-3"
+              [ngClass]="{ 'is-invalid': submitted && f['n_players'].errors }" />
+              <button type='button' (click)="change_input('n_players','plus')" class="btn btn-primary m-0 fs-3"><i class="fa-solid fa-square-plus"></i></button>
+            </div>
+            <div *ngIf="submitted && f['n_players'].errors" class="invalid-feedback">
+              <div *ngIf="f['n_players'].errors['required']">n_players is required</div>
+              <div *ngIf="f['n_players'].errors['min']">El número de jugadores debe de ser superior a
+                {{f['n_players'].errors['min'].min}}</div>
+              <div *ngIf="f['n_players'].errors['pattern']" class="text-danger">Number Only</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="mb-3">
+              <label class="form-label">TheMolesRat:</label>
+              <div class="input-group mb-3">
+                <button type='button' (click)="change_input('n_moles','minus')" class="btn btn-primary m-0 fs-3"><i class="fa-solid fa-square-minus"></i></button>
+              <input type="number" formControlName="n_moles" min="1" class="form-control text-center fs-3"
+                [ngClass]="{ 'is-invalid': submitted && f['n_moles'].errors }" />
+                <button type='button' (click)="change_input('n_moles','plus')" class="btn btn-primary m-0 fs-3"><i class="fa-solid fa-square-plus"></i></button>
+              </div>
+              <div *ngIf="submitted && f['n_moles'].errors" class="invalid-feedback">
+                <div *ngIf="f['n_moles'].errors['required']">Themole is required</div>
+                <div *ngIf="f['n_moles'].errors['min']">El número de The MolesRat debe de ser superior a
+                  {{f['n_moles'].errors['min'].min}}</div>
+                <div *ngIf="f['n_moles'].errors['pattern']" class="text-danger">Number Only</div>
+                <div *ngIf="f['n_moles'].errors['match_mole']">El numero de moles debe de ser inferior al de jugadores</div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+      
+      <div class="mb-3">
+        <h5>¿Cómo quieres la palabra secreta?</h5>
+        <div class="row">    
+          <div class="col-6">
+            <div class="form-check">
+              <input class="form-check-input" formControlName="cat_word" type="radio" name="cat_word" id="flexRadioDefault1"
+                value="1" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Básica (Infantil)
+              </label>
+            </div>
 
-    <div class="form-check">
-      <input class="form-check-input" formControlName="cat_word" type="radio" name="cat_word" id="flexRadioDefault1"
-        value="1" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
-      <label class="form-check-label" for="flexRadioDefault1">
-        Frases 1:
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" formControlName="cat_word" type="radio" name="cat_word" id="flexRadioDefault2"
-        value="2" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
-      <label class="form-check-label" for="flexRadioDefault2">
-        Frases 2:
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" formControlName="cat_word" type="radio" name="cat_word" id="flexRadioDefault3"
-        value="0" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
-      <label class="form-check-label" for="flexRadioDefault3">
-        Frases 3:
-      </label>
-    </div>
-    <div *ngIf="submitted && f['cat_word'].errors" class="invalid-feedback">
-      <div *ngIf="f['cat_word'].errors['required']">Selecciona una cateogria</div>
-    </div>
-  </div>
-  <div *ngIf="f['cat_word'].value=='0'">
-    <label class="form-label">word presona:</label>
-    <input type="text" formControlName="custom_word" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted && f['custom_word'].errors}" />
-    <div *ngIf="submitted && f['custom_word'].errors" class="invalid-feedback">
-      <div *ngIf="f['custom_word'].errors['custom_word_error']">Debes introducir la palabra</div>
-    </div>
-  </div>
-  <div class="mb-3">
-    <div class="form-group">
-      <button [disabled]="loading" class="btn btn-primary">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-        Login
-      </button>
-    </div>
-  </div>
-</form>
+            <div class="form-check">
+              <input class="form-check-input" formControlName="cat_word" type="radio" name="cat_word" id="flexRadioDefault2"
+                value="2" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Normal
+              </label>
+            </div>
+           
+          </div>
+          <div class="col-6">
+            <div class="form-check">
+              <input class="form-check-input" formControlName="cat_word" type="radio" name="cat_word" id="flexRadioDefault3"
+                value="3" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
+              <label class="form-check-label" for="flexRadioDefault3">
+                Complicada
+              </label>
+            </div>
+            
+          </div>
+         
+        </div>
+       
+       
+        <div class="form-check">
+          <input class="form-check-input" formControlName="cat_word" placeholder="Introduce tu palabra" type="radio" name="cat_word" id="flexRadioDefault0"
+            value="0" [ngClass]="{ 'is-invalid': submitted && f['cat_word'].errors }">
+          <label class="form-check-label" for="flexRadioDefault0">
+            Personalizada
+          </label>
+        </div>
+        <div *ngIf="submitted && f['cat_word'].errors" class="invalid-feedback">
+          <div *ngIf="f['cat_word'].errors['required']">Selecciona una cateogria</div>
+        </div>
+      </div>
+      <div class="mb-3" *ngIf="f['cat_word'].value=='0'">
+        <input type="text" formControlName="custom_word" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['custom_word'].errors}" />
+        <div *ngIf="submitted && f['custom_word'].errors" class="invalid-feedback">
+          <div *ngIf="f['custom_word'].errors['custom_word_error']">Debes introducir la Palabra Secreta</div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between mb-3">
+          <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+            Empezar Juego
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-primary" (click)="open(content1)">¿Cómo se juega?</button>
 
-{{startForm.value | json }}
-{{startForm.status | json}}
+      </div>
+    </form>
+  
+     <!--
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(content1)">Test modal</button>
+      {{loading}}
+      {{submitted}}
+
+    {{startForm.value | json }}
+    {{startForm.status | json}}
+     -->
+  </div>
+</div>
+
+
 
 
 <ng-template #content1 let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">¿Cómo se juega?</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <form>
       <div class="mb-3">
-        fdgdfgdfgdfgdfgdf
+        <ol>
+          <li>Selecciona el nº de Jugadores, el nº de TheMoles y crea una palabra secreta.</li>
+          <li>Todos los jugadores sabrán la palabra secreta excepto quien sea el TheMole. Pueden haber varios en la partida.</li>
+          <li>Cada jugador deberá decir una palabra relacionada con la palabra secreta.</li>
+          <li>Al final de cada ronda, eliminaremos el jugador que tenga mas posibilidad de ser el TheMoles.</li>
+        </ol>
+        <b>
+        <p>Suponiendo que la palabra secreta sea MESA:</p>
+        <ul>
+          <li>Los jugadores podrán decir palabras como: MADERA, PLATOS, PATAS, o complicadas como, BARNIZ.</li>
+          <li>El TheMole deberá infiltrarse entre el resto de jugadores, utilizado las palabras del resto como referencia.</li>
+        </ul>
+      </b>
       </div>
     </form>
   </div>

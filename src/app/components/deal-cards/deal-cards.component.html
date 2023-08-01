@@ -1,1 +1,23 @@
-<p>deal-cards works!</p>
+    
+
+
+<div class="d-flex align-items-center justify-content-center vh-100 flex-column">
+
+    <h2>Jugador {{currentStep+1}}/{{palabras.length}}</h2><br>
+
+     <div class="card1">
+        {{word}}
+    </div>
+    
+   
+
+        
+    <button [disabled]="loading" class="btn btn-success m-3" (click)="nextStep()" *ngIf="currentStep+1!=palabras.length">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+        Siguiente
+    </button>
+    <button class="btn btn-success m-3" (click)="nextStep()" *ngIf="currentStep+1==palabras.length">Empezar el juego</button>
+
+    <button class="btn btn-primary btn-sm mt-2" (click)="resetGame()">Reiniciar partida</button>
+
+</div>

@@ -1,1 +1,19 @@
-<p>spinner works!</p>
+<div class="position-relative">
+
+    <div class="d-flex align-items-center justify-content-center vh-100 flex-column" (click)="startSpinner()">
+        <div class="fs-3 position-absolute w-100 text-center mt-5 top-0 start-50 translate-middle-x">¿Quién empieza?</div>
+
+
+        <div class="arrow-container" [style.transform]="'rotate(' + rotationDegrees + 'deg)'">
+            <!-- Aquí coloca la imagen o icono de la flecha -->
+            <!-- Por ejemplo, si utilizas Font Awesome: -->
+            <i class="fa-solid fa-carrot"></i>
+        </div>
+    </div>
+
+    <button class="btn btn-primary position-absolute bottom-0 end-0 btn-sm" (click)="resetGame()" *ngIf="endAnimation">Reiniciar partida</button>
+
+
+</div>
+  
+  
