@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   submitted = false;
   word?: string = '';
   closeResult = '';
+  deferredPrompt: any;
+  showInstallButton = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +35,13 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    
+    window.addEventListener('beforeinstallprompt', (event: any) => {
+      event.preventDefault();
+      this.deferredPrompt = event;
+      this.showInstallButton = true;
+      alert(this.showInstallButton);
+    });
    
   };
 
@@ -120,6 +128,21 @@ export class HomeComponent implements OnInit {
       if(field=='n_moles' && valor>1) this.startForm.get(field)!.setValue(valor-1);
     }else{
       this.startForm.get(field)!.setValue(valor+1);
+    }
+  }
+
+  installPwa(): void {
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      this.deferredPrompt.userChoice.then((choiceResult: any) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('El usuario ha instalado la PWA.');
+          this.showInstallButton = false;
+        } else {
+          console.log('El usuario ha rechazado la instalación de la PWA.');
+        }
+        this.deferredPrompt = null;
+      });
     }
   }
 
