@@ -34,10 +34,11 @@ export class DealCardsComponent implements OnInit{
       this.loading = false;
       this.currentStep+= 1;
       this.word = this.palabras[this.currentStep];
+      if(this.currentStep==this.palabras.length) this.router.navigate(['/spinner']);
     }, 1000);
     
    
-    if(this.currentStep==this.palabras.length) this.router.navigate(['/spinner']);
+    
   }
 
   resetGame(){
