@@ -1,10 +1,8 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { WordService } from 'src/app/word.service';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
-
 
 @Component({
   selector: 'app-spinner',
@@ -18,7 +16,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ]),
   ],
 })
-export class SpinnerComponent {
+
+export class SpinnerComponent implements OnInit{
   rotationDegrees: number = 0;
   finalPosition: number = 30;
   endAnimation: boolean = true;
@@ -33,6 +32,13 @@ export class SpinnerComponent {
     private router: Router,
     private deviceService: DeviceDetectorService
   ) { }
+
+
+  ngOnInit() {
+    if(this.n_players<3){
+      this.router.navigate(['/']);
+    }
+  };
 
 
   isMobile(): boolean {

@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Validation from '../../providers/CustomValidators';
 import { Word } from 'src/app/models/word.model';
 import { WordService } from '../../word.service';
-import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-home',
@@ -31,11 +33,18 @@ export class HomeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private wordService: WordService,
     private modalService: NgbModal,
-    private router: Router
-  ) { }
+    private router: Router,
+    private metaTagService: Meta
+  ) {}
 
   ngOnInit() {
     
+    this.metaTagService.addTags([
+      {
+        name: 'description',
+        content: 'The Mole Rat Game. El juego del Topo. Descubre el infiltrado',
+      },
+      { charset: 'UTF-8' }]);
     window.addEventListener('beforeinstallprompt', (event: any) => {
       event.preventDefault();
       this.deferredPrompt = event;
@@ -91,9 +100,7 @@ export class HomeComponent implements OnInit {
           }
         });
     }
-    
   }
-
 
   set_roles() {
 
