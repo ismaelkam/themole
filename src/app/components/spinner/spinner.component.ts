@@ -1,18 +1,32 @@
-import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { WordService } from 'src/app/word.service';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 
 
 @Component({
   selector: 'app-spinner',
   templateUrl: './spinner.component.html',
-  styleUrls: ['./spinner.component.scss']
+  styleUrls: ['./spinner.component.scss'],
+  animations: [
+    trigger('numberChange', [
+      state('initial', style({ transform: 'scale(1)' })),
+      state('final', style({ transform: 'scale(1.5)' })),
+      transition('initial <=> final', animate('200ms ease-in-out')),
+    ]),
+  ],
 })
 export class SpinnerComponent {
   rotationDegrees: number = 0;
   finalPosition: number = 30;
   endAnimation: boolean = true;
+  n_players: number = this.wordService.players_role.length;
+  selectedNumber: number | null = null;
+  isGenerating: boolean = false;
+  animationState: string = 'initial';
+
 
   constructor(
     private wordService: WordService,
@@ -23,6 +37,21 @@ export class SpinnerComponent {
 
   isMobile(): boolean {
     return this.deviceService.isMobile();
+  }
+
+  generateNumber() {
+    this.isGenerating = true;
+    const duration = 1000;
+    const interval = setInterval(() => {
+      this.animationState = 'final'; // Activamos la animación antes de cambiar el número
+      this.selectedNumber = Math.floor(Math.random() * this.n_players) + 1;
+    }, 70);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      this.isGenerating = false;
+      this.animationState = 'initial'; // Restauramos el estado de la animación
+    }, duration);
   }
 
   startSpinner(){
