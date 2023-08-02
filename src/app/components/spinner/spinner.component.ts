@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { WordService } from 'src/app/word.service';
 import { Router } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 
 @Component({
@@ -15,8 +16,14 @@ export class SpinnerComponent {
 
   constructor(
     private wordService: WordService,
-    private router: Router
+    private router: Router,
+    private deviceService: DeviceDetectorService
   ) { }
+
+
+  isMobile(): boolean {
+    return this.deviceService.isMobile();
+  }
 
   startSpinner(){
       // Calcula una posición aleatoria entre 0 y 360 grados (giro completo)
