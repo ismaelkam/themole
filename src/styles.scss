@@ -54,11 +54,11 @@ body{
     font-family: cursive;
   }
   
-  .card1:hover {
+  .card1:hover,.card1:active  {
     color: rgb(88 199 250 / 100%);
     transition: color 1s;
   }
-  .card1:hover:before, .card1:hover:after {
+  .card1:hover:before, .card1:hover:after,.card1:active:before, .card1:active:after  {
     animation: none;
     opacity: 0;
   }
